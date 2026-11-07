@@ -6,7 +6,6 @@
 
 **Python · Research-oriented AI · Reproducible experiments**
 
-`IN PROGRESS` · Initial public project scaffold
 
 </div>
 
@@ -45,7 +44,22 @@ The project will be developed through explicit baselines, documented implementat
 The following diagram represents the **planned** system flow, not a claim that every component is already implemented.
 
 ```mermaid
-flowchart TD\n A[PDF / text documents] --> B[Ingestion and parsing]\n B --> C[Chunks with source metadata]\n C --> D1[BM25 index]\n C --> D2[Embedding model + FAISS]\n D1 --> E[Retrieval comparison / hybrid fusion]\n D2 --> E\n E --> F[Evidence selection]\n F --> G{Evidence sufficient?}\n G -->|Yes| H[Grounded answer with citations]\n G -->|No| I[Abstain / request clarification]\n H --> J[Evaluation and feedback]
+
+flowchart TD
+    A["PDF / text documents"] --> B["Document ingestion and parsing"]
+    B --> C["Text chunking and metadata"]
+    C --> D["Dense embedding generation"]
+    C --> E["BM25 keyword indexing"]
+    D --> F["FAISS vector index"]
+    G["User question"] --> H["Query processing"]
+    H --> I["Hybrid retrieval"]
+    F --> I
+    E --> I
+    I --> J["Optional reranking"]
+    J --> K["Evidence-grounded answer generation"]
+    K --> L["Answer with source citations"]
+    K --> M["Abstain when evidence is insufficient"]
+
 ```
 
 ## Evaluation strategy
